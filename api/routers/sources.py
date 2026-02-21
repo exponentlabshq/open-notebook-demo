@@ -817,8 +817,8 @@ async def retry_source_processing(source_id: str):
                 # Continue with retry if we can't check status
 
         # Get notebooks that this source belongs to
-        query = "SELECT notebook FROM reference WHERE source = $source_id"
-        references = await repo_query(query, {"source_id": source_id})
+        query = "SELECT out AS notebook FROM reference WHERE in = $source_id"
+        references = await repo_query(query, {"source_id": ensure_record_id(source_id)})
         notebook_ids = [str(ref["notebook"]) for ref in references]
 
         if not notebook_ids:
@@ -873,7 +873,7 @@ async def retry_source_processing(source_id: str):
             )
 
             # Update source with new command ID
-            source.command = ensure_record_id(f"command:{command_id}")
+            source.command = ensure_record_id(command_id)
             await source.save()
 
             # Get current embedded chunks count

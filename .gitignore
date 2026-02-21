@@ -5,6 +5,7 @@ data/
 .uploads/
 sqlite-db/
 surreal-data/
+surreal_data/
 docker.env
 notebook_data/
 # Python-specific
@@ -13,6 +14,7 @@ __pycache__/
 *.so
 todo.md
 temp/
+history.txt
 google-credentials.json
 # Distribution / packaging
 .Python
